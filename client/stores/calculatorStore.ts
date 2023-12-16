@@ -1,8 +1,6 @@
 import { makeAutoObservable } from 'mobx'
-import { ResetKey } from '../enums/ResetKey';
 import { NumberKey } from '../enums/NumberKey';
 import { OperationKey } from '../enums/OperationKey';
-import { RefObject } from 'react';
 
 export class CalculatorStore {
   display: string = NumberKey.ZERO

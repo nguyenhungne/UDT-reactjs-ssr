@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx'
 
 export class HistoryStore {
-  history: string[] = []
+  historyCalculator: string[] = []
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  addHistory(value: string) {
-    this.history.push(value)
+  setHistoryCalculator(history: string[]) {
+    this.historyCalculator = history
   }
 }

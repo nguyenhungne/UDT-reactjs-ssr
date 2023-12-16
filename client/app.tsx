@@ -1,5 +1,5 @@
 import React from "react";
-import HomePage from "./pages/home";
+import HomePage from "./pages/HomePage";
 import './styles/app.scss';
 import { Route, Routes, Router } from "react-router-dom";
 import Calculator from "./pages/CalculatorPage";
