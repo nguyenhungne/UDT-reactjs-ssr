@@ -1,5 +1,8 @@
 {
   "name": "ts-react-webpack-ssr",
+  "author": {
+    "name": "nguyenhungne",
+    "email": "nguyenhungf205@gmail.com"},
   "version": "1.0.0",
   "scripts": {
     "build:client": "webpack --config webpack.config.client.js --watch",

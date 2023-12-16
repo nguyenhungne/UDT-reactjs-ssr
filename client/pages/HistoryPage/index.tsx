@@ -10,7 +10,7 @@ const HistoryPage = () => {
 
 
     return (
-        <div className={"wrapper"}>
+        <div className={"container"}>
             <h1 className={"tittle"}>History Page</h1>
             {historyCalculator.map((item, index) => {
                 return (
