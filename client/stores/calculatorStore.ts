@@ -4,8 +4,8 @@ import { NumberKey } from '../enums/NumberKey';
 import { OperationKey } from '../enums/OperationKey';
 
 export class CalculatorStore {
-  display: string = "0"
-  store: string = "0"
+  display: string = NumberKey.ZERO
+  store: string = NumberKey.ZERO
   constructor() {
     makeAutoObservable(this)
   }
@@ -13,6 +13,7 @@ export class CalculatorStore {
   // reset button
   resetDisplay(): void {
     this.display = NumberKey.ZERO
+    this.store = NumberKey.ZERO
   }
 
   // normal button
@@ -38,19 +39,23 @@ export class CalculatorStore {
       else {
         this.store += value
       }
-    } else if (value = OperationKey.PLUS_MINUS) {
-      console.log("Plus minus")
-      // if (this.store[0] == OperationKey.SUBTRACT) {
-      //   this.store = this.store.slice(1)
-      //   this.display = this.display.slice(1)
-      // } else {
-      //   this.store = OperationKey.SUBTRACT + this.store
-      //   this.display = OperationKey.SUBTRACT + this.display
-      // }
+    } else if (value == OperationKey.PLUS_MINUS) {
+      if (this.store[0] == OperationKey.SUBTRACT) {
+        this.store = this.store.slice(1)
+        this.display = this.display.slice(1)
+      } else {
+        this.store = this.store.slice(0,-1) +  OperationKey.SUBTRACT + this.store[this.store.length - 1]
+        this.display = OperationKey.SUBTRACT + this.display
+      }
+    } else if (value == OperationKey.PERCENTAGE) {
+      if (this.store[this.store.length - 1] == OperationKey.DIVIDE || this.store[this.store.length - 1] == OperationKey.MULTIPLY || this.store[this.store.length - 1] == OperationKey.ADD || this.store[this.store.length - 1] == OperationKey.SUBTRACT) {
+        this.store = this.store.slice(0, -1)
+        this.display = this.display.slice(0, -1)
+      }
+      this.display = (Number(this.display) / 100).toString()
+      this.store = this.store.slice(0,-1) + this.display
     }
-    
     else  {
-      console.log("alo")
       if (this.store == NumberKey.ZERO) {
         this.display = value
         this.store = value
@@ -81,8 +86,16 @@ export class CalculatorStore {
       if (this.store.includes(OperationKey.ADD)) {
         this.store = this.store.replace(new RegExp(OperationKey.DOT, 'g'), '.');
       }
-      console.log(this.store)
+
+      if (this.store[this.store.length - 1] == OperationKey.DIVIDE || this.store[this.store.length - 1] == OperationKey.MULTIPLY || this.store[this.store.length - 1] == OperationKey.ADD || this.store[this.store.length - 1] == OperationKey.SUBTRACT) {
+        this.store = this.store.slice(0, -1)
+      }
       this.display = eval(this.store).toString();
+      let results:Array<string> = []
+      localStorage.getItem("results") ? results = JSON.parse(localStorage.getItem("results") || "") : results = []
+      results.push(this.store + "=" + this.display)
+      localStorage.setItem("results", JSON.stringify(results))
+      this.store = NumberKey.ZERO
     }
 }
 }
