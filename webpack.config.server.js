@@ -5,7 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 module.exports = {
   name: 'server',
   entry: {
-    server: path.resolve(__dirname, 'server/server.ts'),
+    server: path.resolve(__dirname, 'server/server.js'),
   },
   mode: 'production',
   output: {
@@ -27,6 +27,16 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           configFile: 'tsconfig.server.json',
+        },
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react'],
+          },
         },
       },
     ],
