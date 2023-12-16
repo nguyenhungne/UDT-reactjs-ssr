@@ -38,43 +38,51 @@ export class CalculatorStore {
       else {
         this.store += value
       }
-    } else if (false) {}
-    // khi bam vao so thi chi hien thi so thoi
+    } else if (value = OperationKey.PLUS_MINUS) {
+      console.log("Plus minus")
+      // if (this.store[0] == OperationKey.SUBTRACT) {
+      //   this.store = this.store.slice(1)
+      //   this.display = this.display.slice(1)
+      // } else {
+      //   this.store = OperationKey.SUBTRACT + this.store
+      //   this.display = OperationKey.SUBTRACT + this.display
+      // }
+    }
+    
     else  {
+      console.log("alo")
       if (this.store == NumberKey.ZERO) {
         this.display = value
         this.store = value
-      } else {
+      }
+      else if (this.store[this.store.length - 1] == OperationKey.DIVIDE || this.store[this.store.length - 1] == OperationKey.MULTIPLY || this.store[this.store.length - 1] == OperationKey.ADD || this.store[this.store.length - 1] == OperationKey.SUBTRACT) {
         this.display = value
+        this.store += value
+      }
+      
+      else  
+      {
+        this.display += value
         this.store += value
       }
     } 
   }
 
-
-
-// nhan chia format 8*6 or 8/6 thi ra ket qua luon
-// cong tru format 8+6 or 8-6 thi neu tiep theo la dau nhan chia thi khong ra ket qua
-// neu tiep theo la dau cong tru thi ra ket qua
   // calculate button
   calculate(): void {
     console.log(this.store)
-    if (typeof this.display === 'string') {
-      if (this.display.includes(OperationKey.DIVIDE)) {
-        this.display = this.display.replace(OperationKey.DIVIDE, '/');
-      } 
-      if (this.display.includes(OperationKey.MULTIPLY)) {
-        this.display = this.display.replace(OperationKey.MULTIPLY, '*');
-      } 
-      if (this.display.includes(OperationKey.ADD)) {
-        this.display = this.display.replace(OperationKey.DOT, '.');
+    if (typeof this.store === 'string') {
+      if (this.store.includes(OperationKey.DIVIDE)) {
+        this.store = this.store.replace(new RegExp(OperationKey.DIVIDE, 'g'), '/');
       }
-      if (this.display.includes(OperationKey.PLUS_MINUS)) {
-        this.display = this.display.replace(OperationKey.ADD, '-');
-        this.display = this.display.replace(OperationKey.SUBTRACT, '+');
+      if (this.store.includes(OperationKey.MULTIPLY)) {
+        this.store = this.store.replace(new RegExp(OperationKey.MULTIPLY, 'g'), '*');
       }
-      
-      this.display = eval(this.display).toString();
+      if (this.store.includes(OperationKey.ADD)) {
+        this.store = this.store.replace(new RegExp(OperationKey.DOT, 'g'), '.');
+      }
+      console.log(this.store)
+      this.display = eval(this.store).toString();
     }
 }
 }
