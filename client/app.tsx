@@ -1,7 +1,8 @@
 import React from "react";
 import HomePage from "./pages/home";
+import './styles/app.scss';
 import { Route, Routes, Router } from "react-router-dom";
-import Calculator from "./pages/calculator";
+import Calculator from "./pages/CalculatorPage/calculator";
 import HistoryPage from "./pages/history";
 
 function App() {

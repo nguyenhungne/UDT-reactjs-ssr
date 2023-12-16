@@ -4,7 +4,6 @@ import path from 'path'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import  App  from '../client/app'
-import CalculatorPage from '../client/pages/calculator'
 import { StaticRouter } from 'react-router-dom/server';
 import { BrowserRouter } from 'react-router-dom';
 const server = express()
