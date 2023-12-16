@@ -2,12 +2,23 @@ import { makeAutoObservable } from 'mobx'
 import { ResetKey } from '../enums/ResetKey';
 import { NumberKey } from '../enums/NumberKey';
 import { OperationKey } from '../enums/OperationKey';
+import { RefObject } from 'react';
 
 export class CalculatorStore {
   display: string = NumberKey.ZERO
   store: string = NumberKey.ZERO
+  isClickInput: boolean = false
   constructor() {
     makeAutoObservable(this)
+  }
+  //set Display
+  setDisplay(value: string): void {
+    this.display = value
+    this.store = value
+  }
+  //click Input
+  handleClickInput(): void {
+    this.isClickInput = !this.isClickInput
   }
   
   // reset button
@@ -92,9 +103,11 @@ export class CalculatorStore {
       }
       this.display = eval(this.store).toString();
       let results:Array<string> = []
-      localStorage.getItem("results") ? results = JSON.parse(localStorage.getItem("results") || "") : results = []
+      localStorage.getItem("results")  ? results = JSON.parse(localStorage.getItem("results") || "") : results = []
       results.push(this.store + "=" + this.display)
-      localStorage.setItem("results", JSON.stringify(results))
+      if (results[results.length - 1] !== "0=0") {
+        localStorage.setItem("results", JSON.stringify(results))
+      }
       this.store = NumberKey.ZERO
     }
 }

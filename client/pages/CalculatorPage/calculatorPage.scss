@@ -66,19 +66,25 @@
           font-weight: bold;
           padding: 10px;
           .calculator-display {
+            background-color: transparent;
             overflow: hidden;
             font-family: 'Open Sans Light', Arial, sans-serif;
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: flex-end;
-            align-items: flex-end;
+            align-items: center;
+            text-align: right;
             color: #fff;
             font-size: 3.8rem;
             font-variant:small-caps;
             font-weight: 100;
             border: none;
             outline: none;
+          }
+          input.calculator-display {
+            height: 60%;
+            background-color: #847d7d;
           }
         }
         .calculator-body {
