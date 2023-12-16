@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import { observer, MobXProviderContext } from "mobx-react";
 import "./calculatorPage.scss";
 import { KeyMap } from "./keymap";
+import {OperationKey} from"../../enums/OperationKey"
 const CalculatorPage = () => {
   const { calculatorStore } = useContext(MobXProviderContext);
-  const { input, setInput } = calculatorStore;
+  const { display, resetDisplay, addDisplay,calculate  } = calculatorStore;
+  const _resetDisplay = resetDisplay.bind(calculatorStore);
+  const _addDisplay = addDisplay.bind(calculatorStore);
+  const _calculate = calculate.bind(calculatorStore);
 
   return (
     <div className={"container"}>
@@ -13,13 +17,12 @@ const CalculatorPage = () => {
         <button className={"button-top button-orange"}></button>
         <button className={"button-top button-green"}></button>
         <div className={"screen"}>
-          {/* input */}
-          <div className={"calculator-display"}>{input}</div>
+          <div className={"calculator-display"}>{display}</div>
         </div>
         <div className={"calculator-body"}>
           {KeyMap.map((key, index) => {
             if (key.name === "RESET") {
-              if (input === "0") {
+              if (display === "0") {
                 return (
                   <button
                     className={`${key.className} calculator-button`}
@@ -31,6 +34,7 @@ const CalculatorPage = () => {
               } else {
                 return (
                   <button
+                  onClick={_resetDisplay}
                     className={`${key.className} calculator-button`}
                     key={index}
                   >
@@ -40,8 +44,33 @@ const CalculatorPage = () => {
               }
             }
 
+            if (key.name === OperationKey.EQUAL) {
+              return (
+                <button
+                onClick={_calculate}
+                  className={`${key.className} calculator-button`}
+                  key={index}
+                >
+                  =
+                </button>
+              );
+            }
+
+            // if (key.name === KeyMap[1].name) {
+            //   return (
+            //     <button
+            //     onClick={}
+            //       className={`${key.className} calculator-button`}
+            //       key={index}
+            //     >
+            //       +/-
+            //     </button>
+            //   );
+            // }
+
             return (
               <button
+              onClick={()=>{_addDisplay(key.name)}}
                 className={`${key.className} calculator-button`}
                 key={index}
               >
