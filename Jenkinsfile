@@ -11,12 +11,12 @@ node {
         app = docker.build("app")
     }
 
-    stage('Test image') {
-        // Test the image
-        app.inside {
-            sh 'echo "tests passed"'
-        }
-    }
+    // stage('Test image') {
+    //     // Test the image
+    //     app.inside {
+    //         sh 'echo "tests passed"'
+    //     }
+    // }
 
     stage('Push image') {
         // Push the image to Docker Hub
