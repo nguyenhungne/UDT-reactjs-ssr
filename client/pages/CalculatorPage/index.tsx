@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { observer, MobXProviderContext } from "mobx-react";
 import "./calculatorPage.scss";
-import { KeyMap } from "./keymap";
+import { KeyMap } from "./KeyMap";
 import {OperationKey} from"../../enums/OperationKey"
 const CalculatorPage = () => {
   const { calculatorStore } = useContext(MobXProviderContext);
