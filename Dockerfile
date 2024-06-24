@@ -18,10 +18,10 @@ COPY . .
 
 # Set a health check
 HEALTHCHECK --interval=5s --timeout=5s \
-  CMD curl -f http://localhost:8000 || exit 1
+  CMD curl -f http://localhost:3000 || exit 1
 
 # Tell Docker what port to expose
-EXPOSE 8000
+EXPOSE 3000
 
 # Command to run the application
 CMD ["npm", "start"]
